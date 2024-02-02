@@ -6,8 +6,10 @@ plugins {
 
 group = 'com.spinic.microservices.composite.product'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = '17'
 
+java {
+    sourceCompatibility = '17'
+}
 repositories {
     mavenCentral()
 }
@@ -15,12 +17,10 @@ jar {
     enabled = false
 }
 dependencies {
-	implementation project(':api')
-	implementation project(':util')
+    implementation project(':api')
+    implementation project(':util')
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-//    implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', classifier: 'osx-aarch_64'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'

@@ -3,7 +3,7 @@ package com.spinic.microservices.api.core.product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-public abstract class ProductService {
+public interface ProductService {
 
     /**
      * Sample usage: "curl $HOST:$PORT/product/1".
@@ -12,5 +12,5 @@ public abstract class ProductService {
      * @return the product, if found, else null
      */
     @GetMapping(value = "/product/{productId}", produces = "application/json")
-    abstract Product getProduct(@PathVariable int productId);
+    Product getProduct(@PathVariable int productId);
 }
