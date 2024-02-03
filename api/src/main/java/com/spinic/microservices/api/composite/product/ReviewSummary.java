@@ -3,9 +3,9 @@ package com.spinic.microservices.api.composite.product;
 public class ReviewSummary {
     private final int reviewId;
     private final String author;
-    private final int subject;
+    private final String subject;
 
-    public ReviewSummary(int reviewId, String author, int subject) {
+    public ReviewSummary(int reviewId, String author, String subject) {
         this.reviewId = reviewId;
         this.author = author;
         this.subject = subject;
@@ -19,7 +19,7 @@ public class ReviewSummary {
         return author;
     }
 
-    public int getSubject() {
+    public String getSubject() {
         return subject;
     }
 }
