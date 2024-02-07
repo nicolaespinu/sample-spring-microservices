@@ -40,7 +40,8 @@ public class ProductCompositeServiceImpl implements ProductCompositeService {
     private ProductAggregate createProductAggregate(
             Product product,
             List<Recommendation> recommendations,
-            List<Review> reviews, String serviceAddress) {
+            List<Review> reviews,
+            String serviceAddress) {
 
         int productId = product.getProductId();
         String name = product.getName();

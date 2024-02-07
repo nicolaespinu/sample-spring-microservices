@@ -64,12 +64,16 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
             LOG.debug("Will call getProduct API on URL: {}", url);
             Product product = restTemplate.getForObject(url, Product.class);
             LOG.debug("Found a product with id: {}", product.getProductId());
-            return product;
 
+            return product;
         } catch (HttpClientErrorException exception) {
             switch (HttpStatus.resolve(exception.getStatusCode().value())) {
-                case NOT_FOUND -> throw new NotFoundException(getErrorMessage(exception));
-                case UNPROCESSABLE_ENTITY -> throw new NotFoundException(getErrorMessage(exception));
+                case NOT_FOUND -> {
+                    throw new NotFoundException(getErrorMessage(exception));
+                }
+                case UNPROCESSABLE_ENTITY -> {
+                    throw new NotFoundException(getErrorMessage(exception));
+                }
                 default -> {
                     LOG.warn("Got an unexpected HTTP error: {}, will rethrow it", exception.getStatusCode());
                     LOG.warn("Error body: {}", exception.getResponseBodyAsString());
@@ -87,7 +91,6 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
         }
     }
 
-    @Override
     public List<Recommendation> getRecommendations(int productId) {
         try {
             String url = recommendationServiceUrl + productId;
@@ -105,15 +108,15 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
         }
     }
 
-    @Override
     public List<Review> getReviews(int productId) {
         try {
             String url = reviewServiceUrl + productId;
             LOG.debug("Will call getReview API on URL: {}", url);
             List<Review> reviewList = restTemplate
                     .exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Review>>() {
-                    }).getBody();
-            LOG.debug("Found reviews for product with Id: {}", productId);
+                    })
+                    .getBody();
+            LOG.debug("Found {} reviews for product with Id: {}", reviewList.size(), productId);
             return reviewList;
         } catch (Exception e) {
             LOG.warn("Got an exception while requesting reviews, returns zero reviews: {}", e.getMessage());

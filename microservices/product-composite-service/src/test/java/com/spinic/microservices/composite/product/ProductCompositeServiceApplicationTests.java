@@ -93,5 +93,4 @@ class ProductCompositeServiceApplicationTests {
                 .jsonPath("$.path").isEqualTo("/product-composite/" + PRODUCT_ID_INVALID)
                 .jsonPath("$.message").isEqualTo("INVALID: " + PRODUCT_ID_INVALID);
     }
-
 }
