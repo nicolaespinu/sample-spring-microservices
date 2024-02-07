@@ -25,7 +25,7 @@ public class GlobalControllerExceptionHandler {
     HttpErrorInfo handleNotFoundExceptions(
             ServerHttpRequest request, NotFoundException exception
     ) {
-        return createHttpErrorInfo(UNPROCESSABLE_ENTITY, request, exception);
+        return createHttpErrorInfo(NOT_FOUND, request, exception);
     }
 
     @ResponseStatus(UNPROCESSABLE_ENTITY)

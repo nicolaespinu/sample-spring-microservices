@@ -7,6 +7,7 @@ import com.spinic.microservices.api.core.recommendation.Recommendation;
 import com.spinic.microservices.api.core.recommendation.RecommendationService;
 import com.spinic.microservices.api.core.review.Review;
 import com.spinic.microservices.api.core.review.ReviewService;
+import com.spinic.microservices.api.exceptions.InvalidInputException;
 import com.spinic.microservices.api.exceptions.NotFoundException;
 import com.spinic.microservices.util.http.HttpErrorInfo;
 import org.slf4j.Logger;
@@ -72,7 +73,7 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
                     throw new NotFoundException(getErrorMessage(exception));
                 }
                 case UNPROCESSABLE_ENTITY -> {
-                    throw new NotFoundException(getErrorMessage(exception));
+                    throw new InvalidInputException(getErrorMessage(exception));
                 }
                 default -> {
                     LOG.warn("Got an unexpected HTTP error: {}, will rethrow it", exception.getStatusCode());
