@@ -17,7 +17,7 @@ class ProductServiceApplicationTests {
     private WebTestClient client;
 
     @Test
-    void getProductById() {
+    void testGetProductById() {
         int productId = 1;
         client.get()
                 .uri("/product/" + productId)
@@ -39,7 +39,7 @@ class ProductServiceApplicationTests {
                 .expectHeader().contentType(APPLICATION_JSON)
                 .expectBody()
                 .jsonPath("$.path").isEqualTo("/product/no-integer")
-                .jsonPath("$.message").doesNotExist();
+                .jsonPath("$.message").isEqualTo("Type mismatch.");
     }
 
     @Test
