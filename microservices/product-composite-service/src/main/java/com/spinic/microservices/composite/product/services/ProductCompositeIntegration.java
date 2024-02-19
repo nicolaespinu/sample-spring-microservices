@@ -100,7 +100,7 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
                     .exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Recommendation>>() {
                     })
                     .getBody();
-            LOG.debug("Found recommendations for product with Id: {}", productId);
+            LOG.debug("Found {} recommendations for a product with Id: {}", recommendations.size(),productId);
             return recommendations;
 
         } catch (Exception ex) {
@@ -112,7 +112,7 @@ public class ProductCompositeIntegration implements ProductService, ReviewServic
     public List<Review> getReviews(int productId) {
         try {
             String url = reviewServiceUrl + productId;
-            LOG.debug("Will call getReview API on URL: {}", url);
+            LOG.debug("Will call getReviews API on URL: {}", url);
             List<Review> reviewList = restTemplate
                     .exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Review>>() {
                     })
