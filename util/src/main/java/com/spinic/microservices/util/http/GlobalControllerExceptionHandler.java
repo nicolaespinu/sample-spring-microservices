@@ -1,5 +1,6 @@
 package com.spinic.microservices.util.http;
 
+import com.spinic.microservices.api.exceptions.BadRequestException;
 import com.spinic.microservices.api.exceptions.InvalidInputException;
 import com.spinic.microservices.api.exceptions.NotFoundException;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler {
@@ -46,5 +48,13 @@ public class GlobalControllerExceptionHandler {
         LOGGER.debug("Returning HTTP status: {} for path: {}, message: {}", httpStatus, path, message);
 
         return new HttpErrorInfo(httpStatus, path, message);
+    }
+
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(BadRequestException.class)
+    public @ResponseBody
+    HttpErrorInfo handleBadRequestExceptions(
+            ServerHttpRequest request, BadRequestException ex) {
+        return createHttpErrorInfo(BAD_REQUEST, request, ex);
     }
 }
